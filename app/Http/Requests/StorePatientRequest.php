@@ -32,7 +32,12 @@ class StorePatientRequest extends FormRequest
             'city' => ['nullable', 'string', 'max:255'],
             'street' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:patients,email'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+            ],
             'phone_number' => ['nullable', 'string', 'max:20'],
             'gender' => ['required', 'string', 'in:' . implode(',', Gender::values())],
 
@@ -63,7 +68,7 @@ class StorePatientRequest extends FormRequest
             'password.required' => 'Password is required.',
             'password.min' => 'Password must be at least 8 characters long.',
 
-
+            'password.regex' => 'one upper one number at least must be 8',
 
 
             'gender.in' => 'Invalid gender selected.',

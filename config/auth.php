@@ -44,9 +44,9 @@ return [
             'driver' => 'jwt',
             'provider' => 'patient',
         ],
-        'doctor' => [
+        'specialist' => [
             'driver' => 'jwt',
-            'provider' => 'doctors',
+            'provider' => 'specialist',
         ],
     ],
 
@@ -75,6 +75,10 @@ return [
         'patient' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Patient::class),
+        ],
+        'specialist' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\specialist::class),
         ],
 
         // 'users' => [

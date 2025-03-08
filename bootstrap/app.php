@@ -14,9 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'patientmiddleware' => \App\Http\Middleware\PatientMiddleware::class,
+            'specialistMiddleware' => \App\Http\Middleware\specialistMiddleware::class,
 
         ]);
-
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
