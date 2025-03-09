@@ -14,6 +14,7 @@ Route::prefix('patient')->controller(PatientController::class)->group(function (
         route::get('get', function () {
             return response()->json(Auth::user());
         });
+        Route::put('/{id}/update', 'update');
         Route::Post('logout', 'logout');
     });
 });
@@ -28,6 +29,7 @@ Route::prefix('specialist')->controller(SpecialistController::class)->group(func
         route::get('get', function () {
             return response()->json(Auth::user());
         });
+        Route::put('/{id}/update', 'update');
         Route::Post('logout', 'logout');
     });
 });

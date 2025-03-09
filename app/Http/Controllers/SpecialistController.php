@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\specialist;
+use App\Services\Specialist\SpecialistService;
 use  App\Services\Specialist\AuthSpecialistService;
-use App\Http\Requests\StorespecialistRequest;
-use App\Http\Requests\UpdatespecialistRequest;
 use App\Http\Requests\Specialist\LoginSpecialistRequest;
+use App\Http\Requests\specialist\StorespecialistRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\specialist\UpdatespecialistRequest;
 
 class SpecialistController extends Controller
 {
     protected $authSpecialistService;
-    public function  __construct(AuthSpecialistService $authSpecialistService)
+    protected $specialistService;
+    public function  __construct(AuthSpecialistService $authSpecialistService,SpecialistService $specialistService)
     {
         $this->authSpecialistService = $authSpecialistService;
+        $this->specialistService = $specialistService;
     }
     public function register(StorespecialistRequest $request)
     {
@@ -61,9 +65,12 @@ class SpecialistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatespecialistRequest $request, specialist $specialist)
-    {
-        //
+    public function update(UpdatespecialistRequest $request,  $id) {
+
+            $response = $this->specialistService->updateProfile($request, $id);
+            return response()->json($response, $response['status']);
+
+
     }
 
     /**

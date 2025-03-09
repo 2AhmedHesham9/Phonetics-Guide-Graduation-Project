@@ -7,14 +7,14 @@ use App\Models\Specialist;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use App\Interfaces\AuthenticationInterface;
-use App\Http\Requests\StorespecialistRequest;
+use  App\Http\Requests\Specialist\StoreSpecialistRequest;
 use App\Http\Requests\Specialist\LoginSpecialistRequest;
 
 class AuthSpecialistService implements AuthenticationInterface
 
 
 {
-    protected StorespecialistRequest $registerRequest;
+    protected StoreSpecialistRequest $registerRequest;
     protected LoginSpecialistRequest $loginRequest;
 
     public function __construct() {}
@@ -65,8 +65,7 @@ class AuthSpecialistService implements AuthenticationInterface
     public function logout()
     {
 
-            JWTAuth::invalidate(JWTAuth::getToken());
-            return ['message' => 'User logged out successfully'];
-
+        JWTAuth::invalidate(JWTAuth::getToken());
+        return ['message' => 'User logged out successfully'];
     }
 }
