@@ -7,17 +7,21 @@ use App\Services\Specialist\SpecialistService;
 use  App\Services\Specialist\AuthSpecialistService;
 use App\Http\Requests\Specialist\LoginSpecialistRequest;
 use App\Http\Requests\specialist\StorespecialistRequest;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use App\Http\Requests\specialist\UpdatespecialistRequest;
+use App\Services\Patient_Specialist\PatientSpecialistService;
+use App\Http\Requests\PatientSpecialist\SpecialistAddPatientRequest;
 
 class SpecialistController extends Controller
 {
     protected $authSpecialistService;
     protected $specialistService;
-    public function  __construct(AuthSpecialistService $authSpecialistService,SpecialistService $specialistService)
+    protected $patientSpecialistService;
+    public function  __construct(AuthSpecialistService $authSpecialistService,SpecialistService $specialistService, PatientSpecialistService $PatientSpecialistService)
     {
         $this->authSpecialistService = $authSpecialistService;
         $this->specialistService = $specialistService;
+        $this->patientSpecialistService=$PatientSpecialistService;
     }
     public function register(StorespecialistRequest $request)
     {
@@ -73,11 +77,19 @@ class SpecialistController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(specialist $specialist)
     {
         //
+    }
+
+    public function addPatient(SpecialistAddPatientRequest $specialistAddPatientRequest){
+        $response=$this->patientSpecialistService->addPatient($specialistAddPatientRequest);
+        return response()->json($response);
+
+    }
+    public function getPatientsForSpecialist(){
+
+        $response=$this->patientSpecialistService->getPatientsForSpecialist();
+        return response()->json($response);
     }
 }

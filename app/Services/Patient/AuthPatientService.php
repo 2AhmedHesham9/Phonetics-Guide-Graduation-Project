@@ -66,7 +66,7 @@ class AuthPatientService implements AuthenticationInterface
 
         $token = Auth::guard('patient')->attempt($credentials);
 
-        $patient = Patient::select('id', 'first_name', 'last_name', 'email')
+        $patient = Patient::select('id', 'first_name', 'last_name', 'email', 'specified_id')
                                     ->where('email', $loginRequest->email)
                                     ->first();
         $patient->token = $token;

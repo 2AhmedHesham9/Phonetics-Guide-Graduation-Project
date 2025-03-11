@@ -25,9 +25,18 @@ class Patient extends Authenticatable implements JWTSubject
         'role',
         'jwt_token',
     ];
+
+    public function specialist(){
+        return $this->hasOneThrough(Specialist::class,PatientSpecialist::class,'patient_id','id','id','specialist_id');
+    }
+
+
+
+
     protected $hidden = [
         'password',
         'remember_token',
+        
     ];
     /**
      * Get the attributes that should be cast.

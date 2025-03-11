@@ -32,7 +32,7 @@ class AuthSpecialistService implements AuthenticationInterface
         $specialist = Specialist::create([
             'first_name' => $registerRequest->first_name,
             'last_name' => $registerRequest->last_name,
-            'years_of_experience' => $registerRequest->years_of_experience,
+            'years_of_experince' => $registerRequest->years_of_experince,
             'image' => $registerRequest->image,
             'date_of_birth' => $registerRequest->date_of_birth,
             'clinic_state' => $registerRequest->clinic_state,

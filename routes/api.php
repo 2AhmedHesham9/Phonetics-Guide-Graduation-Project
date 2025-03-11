@@ -16,6 +16,7 @@ Route::prefix('patient')->controller(PatientController::class)->group(function (
         });
         Route::put('/{id}/update', 'update');
         Route::Post('logout', 'logout');
+        Route::GET('/my-specialist', 'getMySpecialist');
     });
 });
 
@@ -31,5 +32,7 @@ Route::prefix('specialist')->controller(SpecialistController::class)->group(func
         });
         Route::put('/{id}/update', 'update');
         Route::Post('logout', 'logout');
+        Route::Post('add/patient', 'addpatient')->middleware('active.patient.with.specialist');
+        Route::GET('get/patients', 'getPatientsForSpecialist');
     });
 });

@@ -22,7 +22,6 @@ return new class extends Migration
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->foreign('specialist_id')->references('id')->on('specialists')->onDelete('cascade');
             $table->timestamps();
- 
         });
     }
 

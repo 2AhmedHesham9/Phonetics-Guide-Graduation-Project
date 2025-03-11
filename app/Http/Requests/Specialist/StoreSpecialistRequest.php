@@ -38,7 +38,7 @@ class StoreSpecialistRequest extends FormRequest
                 'min:8',
                 'regex:/^(?=.*[A-Z])(?=.*\d).+$/',
             ],
-            'phone_number' => 'nullable|string|max:20',
+            'phone_number' => 'required|string|max:20|unique:specialists,phone_number',
             'gender' => ['required', 'string', 'in:' . implode(',', Gender::values())],
             'nid' => 'required|integer|unique:specialists,nid|regex:/^\d{14}$/',
 
