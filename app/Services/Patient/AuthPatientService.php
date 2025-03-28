@@ -10,20 +10,21 @@ use Illuminate\Support\Str;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Services\GoogleDriveService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\LoginPatientRequest;
 use App\Http\Requests\StorePatientRequest;
 use App\Interfaces\AuthenticationInterface;
-
+use App\Mail\WelcomeMail;
 
 class AuthPatientService implements AuthenticationInterface
 
 
 {
-    protected $googleDriveService;
-
-    public function __construct(GoogleDriveService $googleDriveService)
+    //     protected $googleDriveService;
+    // GoogleDriveService $googleDriveService
+    public function __construct()
     {
-        $this->googleDriveService = $googleDriveService;
+        // $this->googleDriveService = $googleDriveService;
     }
     protected StorePatientRequest $registerRequest;
     protected LoginPatientRequest $loginRequest;
@@ -56,6 +57,8 @@ class AuthPatientService implements AuthenticationInterface
             'specified_id' => Str::ulid()->toBase32(),
             'role' =>  Roles::Patient->value,
         ]);
+        Mail::to($patient->email)->queue(new WelcomeMail($patient));   // run command php artisan queue:work
+
         return $patient;
     }
 
@@ -65,14 +68,17 @@ class AuthPatientService implements AuthenticationInterface
         $credentials = $loginRequest->only('email', 'password');
 
         $token = Auth::guard('patient')->attempt($credentials);
-
+        if (!$token) {
+            return ["message" => "credentials are wrong Try again"];
+        }
         $patient = Patient::select('id', 'first_name', 'last_name', 'email', 'specified_id')
-                                    ->where('email', $loginRequest->email)
-                                    ->first();
+            ->where('email', $loginRequest->email)
+            ->first();
         $patient->token = $token;
         return $patient;
     }
-    public function logout(){
+    public function logout()
+    {
         JWTAuth::invalidate(JWTAuth::getToken());
 
         return ['message' => 'User logged out successfully'];

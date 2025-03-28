@@ -16,4 +16,15 @@ class PatientSpecialist extends Model
         'start_date',
         'end_date'
     ];
+
+
+    public function specialist()
+    {
+        return $this->belongsTo(Specialist::class);
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }

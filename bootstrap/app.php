@@ -16,10 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'patientmiddleware' => \App\Http\Middleware\PatientMiddleware::class,
             'specialistMiddleware' => \App\Http\Middleware\specialistMiddleware::class,
-        'active.patient.with.specialist' => \App\Http\Middleware\ActivePatientWithSpecialist::class,
+            'active.patient.with.specialist' => \App\Http\Middleware\ActivePatientWithSpecialist::class,
+            'specialist.has.this.patient' => \App\Http\Middleware\SpecialistHasThisPatient::class,
+            'admin.middleware' => \App\Http\Middleware\AdminMiddleware::class,
+        'custom.throttle' => \App\Http\Middleware\CustomThrottleRequests::class,
 
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions) {
-
-    })->create();
+    ->withExceptions(function (Exceptions $exceptions) {})->create();

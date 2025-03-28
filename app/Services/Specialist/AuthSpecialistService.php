@@ -51,12 +51,14 @@ class AuthSpecialistService implements AuthenticationInterface
     public function login($loginRequest)
     {
 
-        $credentials = $loginRequest->only('phone_number', 'password');
+        $credentials = $loginRequest->only('email', 'password');
 
         $token = Auth::guard('specialist')->attempt($credentials);
-
+        if (!$token) {
+            return ["message" => "credentials are wrong Try again"];
+        }
         $specialist = Specialist::select('id', 'first_name', 'last_name', 'email')
-            ->where('phone_number', $loginRequest->phone_number)
+            ->where('email', $loginRequest->email)
             ->first();
 
         $specialist->token = $token;

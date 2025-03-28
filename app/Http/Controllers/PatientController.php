@@ -60,4 +60,10 @@ class PatientController extends Controller
         $response = $this->patientSpecialistService->getSpecialistForPatient();
         return response()->json($response);
     }
+
+    public function deleteMySpecialist()
+    {
+        $response = $this->patientSpecialistService->patientDeleteSpecilaist();
+        return response()->json($response);
+    }
 }

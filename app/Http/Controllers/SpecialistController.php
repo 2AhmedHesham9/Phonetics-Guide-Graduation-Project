@@ -11,6 +11,8 @@ use App\Http\Requests\specialist\StorespecialistRequest;
 use App\Http\Requests\specialist\UpdatespecialistRequest;
 use App\Services\Patient_Specialist\PatientSpecialistService;
 use App\Http\Requests\PatientSpecialist\SpecialistAddPatientRequest;
+use App\Http\Requests\PatientSpecialist\SpecialistUpdatePatientRequest;
+
 
 class SpecialistController extends Controller
 {
@@ -23,6 +25,12 @@ class SpecialistController extends Controller
         $this->specialistService = $specialistService;
         $this->patientSpecialistService=$PatientSpecialistService;
     }
+
+        public function getSpecialistes(){
+        $response = $this->specialistService->getSpecialistes();
+        return response()->json($response,200);
+        }
+
     public function register(StorespecialistRequest $request)
     {
         $specialist = $this->authSpecialistService->register($request);
@@ -42,33 +50,9 @@ class SpecialistController extends Controller
         return Response()->json($response, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorespecialistRequest $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(specialist $specialist)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(specialist $specialist)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdatespecialistRequest $request,  $id) {
 
             $response = $this->specialistService->updateProfile($request, $id);
@@ -76,20 +60,24 @@ class SpecialistController extends Controller
 
 
     }
-
-    public function destroy(specialist $specialist)
-    {
-        //
-    }
-
     public function addPatient(SpecialistAddPatientRequest $specialistAddPatientRequest){
         $response=$this->patientSpecialistService->addPatient($specialistAddPatientRequest);
         return response()->json($response);
 
     }
+
+    public function deletePatient($patient_id) {
+        $response = $this->patientSpecialistService->specilaistDeletePatient($patient_id);
+        return response()->json($response);
+    }
     public function getPatientsForSpecialist(){
 
         $response=$this->patientSpecialistService->getPatientsForSpecialist();
+        return response()->json($response);
+    }
+    public function specialsitUpdatePatient(SpecialistUpdatePatientRequest $request, $patient_id){
+
+        $response = $this->patientSpecialistService->specilaistupdatePatient ($request,$patient_id);
         return response()->json($response);
     }
 }

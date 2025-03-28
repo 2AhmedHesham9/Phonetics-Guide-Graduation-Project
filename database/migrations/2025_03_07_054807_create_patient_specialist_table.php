@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('patient_specialist', function (Blueprint $table) {
-            $table->unsignedBigInteger('patient_id')->primary();
-            $table->unsignedBigInteger('specialist_id');
+            $table->unsignedBigInteger('patient_id')->primary()->index();
+            $table->unsignedBigInteger('specialist_id')->index();
             $table->text('notes')->nullable();
             $table->enum('status', PatientStatus::Values())->default(PatientStatus::Active->value);
             $table->date('start_date')->isNotEmpty();

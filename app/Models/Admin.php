@@ -2,45 +2,22 @@
 
 namespace App\Models;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Patient extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable implements JWTSubject
 {
-
     protected $fillable = [
         'first_name',
         'last_name',
-        'medical_history',
-        'image',
-        'date_of_birth',
+        'email',
+        'password',
+        'phone',
         'state',
         'city',
         'street',
-        'email',
-        'password',
-        'phone_number',
-        'gender',
-        'specified_id',
         'role',
-
-    ];
-
-    public function specialist()
-    {
-        return $this->hasOneThrough(Specialist::class, PatientSpecialist::class, 'patient_id', 'id', 'id', 'specialist_id');
-    }
-
-    public function patientSpecialists()
-    {
-        return $this->hasOne(PatientSpecialist::class);
-    }
-
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-
     ];
     /**
      * Get the attributes that should be cast.
@@ -54,7 +31,15 @@ class Patient extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
-    // Rest omitted for brevity
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

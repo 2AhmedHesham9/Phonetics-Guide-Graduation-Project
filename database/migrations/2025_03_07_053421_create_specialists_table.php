@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('specialists', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->isNotEmpty();
-            $table->string('last_name')->isNotEmpty();
+            $table->string('first_name')->isNotEmpty()->index();
+            $table->string('last_name')->isNotEmpty()->index();
             $table->integer('years_of_experince')->isNotEmpty();
             $table->string('image')->nullable()->index();
             $table->date('date_of_birth')->isNotEmpty();
-            $table->string('clinic_state')->nullable();
-            $table->string('clinic_city')->nullable();
-            $table->string('clinic_street')->nullable();
+            $table->string('clinic_state')->isNotEmpty()->index();
+            $table->string('clinic_city')->isNotEmpty()->index();
+            $table->string('clinic_street')->isNotEmpty()->index();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

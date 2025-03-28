@@ -14,6 +14,17 @@ class SpecialistService
     {
         //
     }
+    public function getSpecialistes()
+    {
+        $specilsist = Specialist::selectRaw(
+            'id,
+            CONCAT(first_name," ",last_name) as `Full Name`,
+             CONCAT(clinic_state," / ",clinic_city," / ",clinic_street) as `Clinc Location`,
+            years_of_experince,
+            image'
+        )->get();
+        return $specilsist;
+    }
     public function UpdateProfile(UpdateSpecialistRequest $request,  $id)
     {
 

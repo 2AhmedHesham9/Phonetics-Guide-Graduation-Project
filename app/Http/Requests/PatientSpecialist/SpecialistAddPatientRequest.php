@@ -24,7 +24,7 @@ class SpecialistAddPatientRequest extends FormRequest
     {
 
         return [
-            'specified_id' => 'required|string|exists:patients,specified_id',
+            // 'specified_id' => 'required|string|exists:patients,specified_id',
             'notes' => 'nullable|string',
             'start_date' => 'required|date|date_format:Y-m-d|before:end_date',
             'end_date' => 'required|date|date_format:Y-m-d|after:start_date',

@@ -22,15 +22,18 @@ class LoginSpecialistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone_number' => 'required|exists:specialists,phone_number',
+            // 'phone_number' => 'required|exists:specialists,phone_number',
+            'email' => 'required|email|exists:specialists,email',
             'password' => 'required|string|min:8',
         ];
     }
     public function messages()
     {
         return [
-            'phone_number.required' => 'The phone_number field is required.',
-            'phone_number.phone_number' => 'The phone_number must be a valid phone_number address.',
+            // 'phone_number.required' => 'The phone_number field is required.',
+            // 'phone_number.phone_number' => 'The phone_number must be a valid phone_number address.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email must be a valid email address.',
             'password.required' => 'The password field is required.',
             'password.min' => 'The password must be at least 8 characters.',
         ];

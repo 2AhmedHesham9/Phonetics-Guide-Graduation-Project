@@ -28,9 +28,9 @@ class StoreSpecialistRequest extends FormRequest
             'years_of_experince' => 'required|integer|min:0',
             'image' => ['nullable', 'image', 'max:2048'],
             'date_of_birth' => ['required', 'date', 'date_format:Y-m-d'],
-            'clinic_state' => 'nullable|string|max:255',
-            'clinic_city' => 'nullable|string|max:255',
-            'clinic_street' => 'nullable|string|max:255',
+            'clinic_state' => 'required|string|max:255',
+            'clinic_city' => 'required|string|max:255',
+            'clinic_street' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:specialists,email',
             'password' => [
                 'required',
